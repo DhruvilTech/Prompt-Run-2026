@@ -23,7 +23,8 @@ export const VALID_CATEGORIES: TransactionCategory[] = [
  */
 export function sanitizeString(input: unknown, maxLength = 100): string {
   if (typeof input !== 'string') return '';
-  const noHtml = input.replace(/<[^>]*>/g, '').trim();
+  const noScript = input.replace(/<(script|style|iframe)[^>]*>[\s\S]*?<\/\1>/gi, '');
+  const noHtml = noScript.replace(/<[^>]*>/g, '').trim();
   const clean = Array.from(noHtml)
     .filter((char) => {
       const code = char.charCodeAt(0);

@@ -63,8 +63,10 @@ export const AppShell: React.FC = () => {
             Add
           </Button>
           <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileMenuOpen}
             className="p-2 rounded-xl text-paper-secondary hover:text-paper-primary hover:bg-midnight-panel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-lime"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -88,6 +90,7 @@ export const AppShell: React.FC = () => {
                 </span>
               </Link>
               <button
+                type="button"
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-2 rounded-xl text-paper-secondary hover:text-paper-primary"
                 aria-label="Close menu"

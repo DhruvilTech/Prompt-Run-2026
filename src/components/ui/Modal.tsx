@@ -78,6 +78,7 @@ export const Modal: React.FC<ModalProps> = ({
             )}
           </div>
           <button
+            type="button"
             onClick={onClose}
             aria-label="Close dialog"
             className="rounded-lg p-1.5 text-paper-secondary hover:text-paper-primary hover:bg-midnight-panel transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-lime"

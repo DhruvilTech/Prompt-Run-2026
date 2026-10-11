@@ -75,7 +75,7 @@ export function clearPersistedState(): void {
   try {
     localStorage.removeItem(STORAGE_KEY);
   } catch (e) {
-    console.error(e);
+    console.error('Failed to clear persisted state:', e);
   }
 }
 

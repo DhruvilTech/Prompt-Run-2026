@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -7,13 +7,17 @@ import {
   X,
 } from 'lucide-react';
 import Lenis from 'lenis';
-import { Hero3DCanvas } from './Hero3DCanvas';
+import { HeroFallback } from './HeroFallback';
 import { ScrollytellingHero } from './ScrollytellingHero';
 import { MoneyRealitySection } from './MoneyRealitySection';
 import { DecisionSimulatorPreview } from './DecisionSimulatorPreview';
 import { FinancialControlSection } from './FinancialControlSection';
 import { FinalCTASection } from './FinalCTASection';
 import { Button } from '../../components/ui/Button';
+
+const Hero3DCanvas = lazy(() =>
+  import('./Hero3DCanvas').then((m) => ({ default: m.Hero3DCanvas }))
+);
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -85,6 +89,7 @@ export const LandingPage: React.FC = () => {
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-8 text-xs font-mono font-medium text-paper-secondary">
             <button
+              type="button"
               onClick={scrollToExperience}
               className="hover:text-mint-highlight transition-colors"
             >
@@ -112,9 +117,11 @@ export const LandingPage: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl text-paper-secondary hover:text-paper-primary hover:bg-midnight-panel"
-            aria-label="Toggle navigation menu"
+            className="md:hidden p-2 rounded-xl text-paper-secondary hover:text-paper-primary hover:bg-midnight-panel focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-lime"
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -124,6 +131,7 @@ export const LandingPage: React.FC = () => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-midnight-surface/95 backdrop-blur-xl border-b border-midnight-border px-6 py-4 space-y-3">
             <button
+              type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
                 scrollToExperience();
@@ -241,7 +249,9 @@ export const LandingPage: React.FC = () => {
           {/* Right Column: Real Three.js WebGL 3D Canvas Visual (5 cols) */}
           <div className="lg:col-span-5 h-[420px] sm:h-[500px] lg:h-[580px] w-full relative flex items-center justify-center">
             {/* The real WebGL scene running live */}
-            <Hero3DCanvas className="w-full h-full" />
+            <Suspense fallback={<HeroFallback />}>
+              <Hero3DCanvas className="w-full h-full" />
+            </Suspense>
 
             {/* Floating Glassmorphic Telemetry Tag */}
             <div className="absolute bottom-4 right-4 glass-hud px-4 py-2.5 rounded-2xl pointer-events-none text-left">

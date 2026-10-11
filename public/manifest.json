@@ -1,0 +1,19 @@
+{
+  "name": "TENFLOW — Gen Z Financial Survival",
+  "short_name": "TENFLOW",
+  "description": "Interactive ₹10,000 / 30-Day Financial Survival Simulator with real-time consequence prediction.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080D12",
+  "theme_color": "#080D12",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "productivity", "utilities"]
+}
