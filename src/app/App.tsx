@@ -2,12 +2,15 @@ import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 import { FinanceProvider } from '../state/FinanceContext';
+import { ErrorBoundary } from '../components/ui/ErrorBoundary';
 
 export const App: React.FC = () => {
   return (
-    <FinanceProvider>
-      <RouterProvider router={router} />
-    </FinanceProvider>
+    <ErrorBoundary>
+      <FinanceProvider>
+        <RouterProvider router={router} />
+      </FinanceProvider>
+    </ErrorBoundary>
   );
 };
 

@@ -13,6 +13,13 @@
 - **Live HTTPS Deployment:** [https://regal-profiterole-7e94e4.netlify.app/](https://regal-profiterole-7e94e4.netlify.app/)
 - **GitHub Repository:** [https://github.com/DhruvilTech/Prompt-Run-2026](https://github.com/DhruvilTech/Prompt-Run-2026)
 
+### 📚 Architectural Documentation & Specifications
+- 🏛️ [System Architecture & Data Flows](docs/ARCHITECTURE.md)
+- 🧪 [What-If Decision Simulator Specification](docs/DECISION_SIMULATOR.md)
+- ♿ [WCAG 2.2 AA Accessibility Compliance Matrix](docs/ACCESSIBILITY.md)
+- 💡 [Innovation & Creative Design Specification](docs/INNOVATION.md)
+- 🤝 [Contributing Standards](CONTRIBUTING.md) • 📜 [Code of Conduct](CODE_OF_CONDUCT.md) • 📝 [Changelog](CHANGELOG.md)
+
 ---
 
 ## 01. Overview
@@ -22,6 +29,39 @@
 Rather than functioning as a passive expense tracker, TENFLOW acts as a **consequence prediction engine**. It couples everyday micro-purchases, fixed subscriptions, surprise emergencies, and savings allocations to a live mathematical telemetry model—allowing users to **see the consequence before they spend**.
 
 The application operates **100% locally** in the browser with zero external APIs, zero bank logins, and zero cloud tracking.
+
+```mermaid
+graph TD
+    User["Gen Z User (₹10,000 / 30 Days)"] -->|Explores| Landing["3D Scrollytelling Hero (/)"]
+    User -->|Operates| AppShell["Financial Command Center (/dashboard)"]
+    
+    subgraph Client State & Vault
+        Context["FinanceContext (State Manager)"]
+        Vault[("Local Vault: tenflow_state_v1")]
+        Context <-->|Sanitized Schema| Vault
+    end
+    
+    subgraph Deterministic Domain Engine
+        Engine["financeEngine.ts (Pure Functions)"]
+        Summary["FinanceSummary Matrix"]
+        Engine --> Summary
+    end
+    
+    subgraph Core Telemetry
+        Summary --> R["Remaining Cash (B0 + Income - Expenses)"]
+        Summary --> U["Uncommitted Buffer (Liquid - Commitments - Goals)"]
+        Summary --> SDA["Safe Daily Allowance (U / Days Remaining)"]
+        Summary --> BM["Burn Multiplier (Actual / Safe Allowance)"]
+        Summary --> Health["100-Pt Explainable Health Score"]
+    end
+    
+    subgraph Decision Simulation Lab
+        SimPage["Decision Simulator (/simulate)"]
+        SimEngine["Immutable Simulation Fork"]
+        SimPage --> SimEngine
+        SimEngine --> Deltas["Side-by-Side 8-Indicator Delta Matrix"]
+    end
+```
 
 ---
 
