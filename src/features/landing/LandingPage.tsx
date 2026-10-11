@@ -159,8 +159,10 @@ export const LandingPage: React.FC = () => {
         )}
       </nav>
 
-      {/* SECTION 1 — CINEMATIC HERO (INTEGRATED 3D WEBGL COMPOSITION) */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* MAIN CONTENT LANDMARK */}
+      <main id="main-content">
+        {/* SECTION 1 — CINEMATIC HERO (INTEGRATED 3D WEBGL COMPOSITION) */}
+        <section className="relative min-h-screen flex items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Subtle Ambient Radial Lighting */}
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-mint-lime/5 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/3 w-[450px] h-[450px] bg-mint-cyan/5 rounded-full blur-[120px] pointer-events-none" />
@@ -270,6 +272,7 @@ export const LandingPage: React.FC = () => {
 
       {/* SECTION 6 — FINAL CTA */}
       <FinalCTASection />
+      </main>
 
       {/* FOOTER */}
       <footer className="border-t border-midnight-border py-8 px-4 text-center text-xs text-paper-muted font-mono">

@@ -8,6 +8,10 @@
 [![Vitest](https://img.shields.io/badge/Vitest-15%2F15_Passed-6E9F18?style=flat-square&logo=vitest)](https://vitest.dev/)
 [![Three.js](https://img.shields.io/badge/Three.js-WebGL_Interactive-000000?style=flat-square&logo=three.js)](https://threejs.org/)
 [![Accessibility](https://img.shields.io/badge/WCAG-2.2_AA_Compliant-008080?style=flat-square)](https://www.w3.org/WAI/standards-guidelines/wcag/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
+
+- **Live HTTPS Deployment:** [https://regal-profiterole-7e94e4.netlify.app/](https://regal-profiterole-7e94e4.netlify.app/)
+- **GitHub Repository:** [https://github.com/DhruvilTech/Prompt-Run-2026](https://github.com/DhruvilTech/Prompt-Run-2026)
 
 ---
 
@@ -55,9 +59,9 @@ All financial logic resides in `src/domain/financeEngine.ts` as deterministic, p
 
 $$\text{Remaining Cash} = B_0 + \sum \text{Posted Income} - \sum \text{Posted Expenses}$$
 
-$$\text{Uncommitted Balance} = \max\left(0, \text{Remaining Cash} - \sum \text{Unpaid Commitments} - \sum \text{Savings Allocations}\right)$$
+$$\text{Uncommitted Balance} = \text{Remaining Cash} - \sum \text{Unpaid Commitments} - \sum \text{Savings Allocations}$$
 
-$$\text{Safe Daily Allowance} = \frac{\text{Uncommitted Balance}}{\max(1, \text{Days Remaining})}$$
+$$\text{Safe Daily Allowance} = \begin{cases} \frac{\text{Uncommitted Balance}}{\max(1, \text{Days Remaining})} & \text{if } \text{Uncommitted Balance} > 0 \\ 0 & \text{if } \text{Uncommitted Balance} \le 0 \end{cases}$$
 
 $$\text{Burn Multiplier} = \frac{\text{Actual Daily Burn Rate}}{\text{Safe Daily Allowance}}$$
 

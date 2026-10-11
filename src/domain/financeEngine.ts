@@ -70,9 +70,10 @@ export function calculateFinanceSummary(
   );
 
   // 4. Uncommitted Balance:
-  // Liquid cash remaining after taking out money reserved for upcoming commitments and savings goals
+  // Liquid cash remaining after taking out money reserved for upcoming commitments and savings goals.
+  // Never hide financial shortfalls by artificially clamping to zero.
   const uncommittedBalance = roundCurrency(
-    Math.max(0, remainingCash - unpaidCommitmentsTotal - savingsAllocationsTotal)
+    remainingCash - unpaidCommitmentsTotal - savingsAllocationsTotal
   );
 
   // 5. Days Elapsed & Remaining
@@ -81,9 +82,9 @@ export function calculateFinanceSummary(
   const daysRemaining = Math.max(1, totalDays - clampedDay + 1);
 
   // 6. Safe Daily Allowance
-  // If uncommittedBalance <= 0, safe allowance is 0
+  // If uncommittedBalance <= 0, safe daily allowance is strictly 0 (no discretionary spend permitted)
   const safeDailyAllowance = roundCurrency(
-    daysRemaining > 0 ? uncommittedBalance / daysRemaining : uncommittedBalance
+    uncommittedBalance > 0 && daysRemaining > 0 ? uncommittedBalance / daysRemaining : 0
   );
 
   // 7. Actual Daily Burn Rate
@@ -215,12 +216,12 @@ function generateTrajectory(
         projectedCurrentPaceBalance: runningActualCash,
       });
     } else {
-      // Future projection
+      // Future projection: Never hide financial deficits by artificially forcing balances to zero
       projectedCurrentPace = roundCurrency(
-        Math.max(0, projectedCurrentPace - burnRate - dueComm)
+        projectedCurrentPace - burnRate - dueComm
       );
       projectedSafe = roundCurrency(
-        Math.max(0, projectedSafe - safeAllowance - dueComm)
+        projectedSafe - safeAllowance - dueComm
       );
 
       trajectory.push({

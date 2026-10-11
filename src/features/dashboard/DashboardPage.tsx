@@ -261,6 +261,25 @@ export const DashboardPage: React.FC = () => {
               />
             )}
 
+            {/* Draw Current Pace Projection Line (Amber dashed) */}
+            {summary.projectedTrajectory.length > 1 && (
+              <polyline
+                fill="none"
+                stroke="#FFCB70"
+                strokeWidth="1.8"
+                strokeDasharray="3 3"
+                points={summary.projectedTrajectory
+                  .slice(state.config.currentDay - 1)
+                  .map((point) => {
+                    const x = ((point.day - 1) / 29) * 300;
+                    const maxB = state.config.startingBudget * 1.2;
+                    const y = 100 - (point.projectedCurrentPaceBalance / maxB) * 100;
+                    return `${x},${Math.max(5, Math.min(95, y))}`;
+                  })
+                  .join(' ')}
+              />
+            )}
+
             {/* Current Day Pin */}
             <circle
               cx={((state.config.currentDay - 1) / 29) * 300}

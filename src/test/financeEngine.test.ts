@@ -67,13 +67,14 @@ describe('TENFLOW Finance Engine', () => {
     expect(summary.safeDailyAllowance).toBe(10000);
   });
 
-  it('determines High Risk when uncommitted balance is depleted', () => {
+  it('determines High Risk when uncommitted balance is depleted and shows accurate deficit', () => {
     const heavyExpense: Transaction[] = [
       { id: '1', type: 'expense', amount: 10500, category: 'Shopping', description: 'Excess spend', date: '2026-10-02', dayIndex: 2 },
     ];
     const summary = calculateFinanceSummary(defaultConfig, heavyExpense, [], []);
     expect(summary.remainingCash).toBe(-500);
-    expect(summary.uncommittedBalance).toBe(0);
+    expect(summary.uncommittedBalance).toBe(-500); // Deficit accurately displayed, never hidden
+    expect(summary.safeDailyAllowance).toBe(0); // Safe daily allowance is 0 when in deficit
     expect(summary.financialRisk).toBe('high_risk');
   });
 
