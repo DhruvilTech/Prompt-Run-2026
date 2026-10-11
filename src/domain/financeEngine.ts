@@ -16,14 +16,24 @@ import {
 } from './financeTypes';
 
 /**
- * Standard rounding to 2 decimal places to avoid IEEE-754 precision artifacts
+ * Standard rounding to 2 decimal places to avoid IEEE-754 precision artifacts.
+ * @param val - The raw numerical floating-point amount.
+ * @returns The rounded number to 2 decimal places.
  */
 export function roundCurrency(val: number): number {
   return Math.round((val + Number.EPSILON) * 100) / 100;
 }
 
 /**
- * Calculate the comprehensive financial summary from state primitives
+ * Calculates the comprehensive real-time financial telemetry from raw state primitives.
+ * Evaluates posted transactions, unpaid future commitments, savings goals,
+ * daily allowances, and risk levels without artificial clamping.
+ * 
+ * @param config - The 30-day budget challenge configuration parameters.
+ * @param transactions - List of historical and posted financial cashflow items.
+ * @param commitments - List of fixed, recurring monthly liabilities.
+ * @param goals - List of prioritized savings goal targets.
+ * @returns Comprehensive FinanceSummary telemetry snapshot.
  */
 export function calculateFinanceSummary(
   config: PlanningConfig,

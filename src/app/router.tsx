@@ -1,49 +1,103 @@
+import { lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { LandingPage } from '../features/landing/LandingPage';
 import { AppShell } from '../components/layout/AppShell';
-import { DashboardPage } from '../features/dashboard/DashboardPage';
-import { PlanPage } from '../features/plan/PlanPage';
-import { TransactionsPage } from '../features/transactions/TransactionsPage';
-import { SimulatorPage } from '../features/simulator/SimulatorPage';
-import { GoalsPage } from '../features/goals/GoalsPage';
-import { InsightsPage } from '../features/insights/InsightsPage';
-import { SettingsPage } from '../features/settings/SettingsPage';
+import { SuspenseWrapper } from '../components/ui/RouteLoadingFallback';
+
+// Route-based code splitting
+const LandingPage = lazy(() =>
+  import('../features/landing/LandingPage').then((m) => ({ default: m.LandingPage }))
+);
+const DashboardPage = lazy(() =>
+  import('../features/dashboard/DashboardPage').then((m) => ({ default: m.DashboardPage }))
+);
+const PlanPage = lazy(() =>
+  import('../features/plan/PlanPage').then((m) => ({ default: m.PlanPage }))
+);
+const TransactionsPage = lazy(() =>
+  import('../features/transactions/TransactionsPage').then((m) => ({
+    default: m.TransactionsPage,
+  }))
+);
+const SimulatorPage = lazy(() =>
+  import('../features/simulator/SimulatorPage').then((m) => ({ default: m.SimulatorPage }))
+);
+const GoalsPage = lazy(() =>
+  import('../features/goals/GoalsPage').then((m) => ({ default: m.GoalsPage }))
+);
+const InsightsPage = lazy(() =>
+  import('../features/insights/InsightsPage').then((m) => ({ default: m.InsightsPage }))
+);
+const SettingsPage = lazy(() =>
+  import('../features/settings/SettingsPage').then((m) => ({ default: m.SettingsPage }))
+);
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <LandingPage />,
+    element: (
+      <SuspenseWrapper>
+        <LandingPage />
+      </SuspenseWrapper>
+    ),
   },
   {
     element: <AppShell />,
     children: [
       {
         path: '/dashboard',
-        element: <DashboardPage />,
+        element: (
+          <SuspenseWrapper>
+            <DashboardPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: '/plan',
-        element: <PlanPage />,
+        element: (
+          <SuspenseWrapper>
+            <PlanPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: '/transactions',
-        element: <TransactionsPage />,
+        element: (
+          <SuspenseWrapper>
+            <TransactionsPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: '/simulate',
-        element: <SimulatorPage />,
+        element: (
+          <SuspenseWrapper>
+            <SimulatorPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: '/goals',
-        element: <GoalsPage />,
+        element: (
+          <SuspenseWrapper>
+            <GoalsPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: '/insights',
-        element: <InsightsPage />,
+        element: (
+          <SuspenseWrapper>
+            <InsightsPage />
+          </SuspenseWrapper>
+        ),
       },
       {
         path: '/settings',
-        element: <SettingsPage />,
+        element: (
+          <SuspenseWrapper>
+            <SettingsPage />
+          </SuspenseWrapper>
+        ),
       },
     ],
   },

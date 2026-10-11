@@ -20,6 +20,7 @@ export const Select: React.FC<SelectProps> = ({
   const generatedId = useId();
   const selectId = id || generatedId;
   const errorId = `${selectId}-error`;
+  const helperId = `${selectId}-helper`;
 
   return (
     <div className="w-full space-y-1.5 text-left">
@@ -35,7 +36,7 @@ export const Select: React.FC<SelectProps> = ({
         id={selectId}
         disabled={disabled}
         aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : undefined}
+        aria-describedby={error ? errorId : helperText ? helperId : undefined}
         className={`w-full bg-midnight-panel/90 border ${
           error ? 'border-status-risk' : 'border-midnight-border'
         } rounded-xl px-3.5 py-2.5 text-sm text-paper-primary focus:outline-none focus:ring-2 focus:ring-mint-lime/80 focus:border-mint-lime/50 transition-all ${className}`}
@@ -53,7 +54,7 @@ export const Select: React.FC<SelectProps> = ({
         </p>
       )}
       {helperText && !error && (
-        <p className="text-xs text-paper-muted mt-1">{helperText}</p>
+        <p id={helperId} className="text-xs text-paper-muted mt-1">{helperText}</p>
       )}
     </div>
   );
